@@ -13,33 +13,47 @@ namespace MedikeeperAPI.Controllers
     {
 
         private readonly ILogger<ItemsController> _logger;
-        private IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
 
         // In constructor, populate cache with seed data
         public ItemsController(ILogger<ItemsController> logger, IMemoryCache memoryCache)
         {
             _logger = logger;
             _cache = memoryCache;
-            int SeedTotal = 7;
-
-            _cache.Set("latest_id", SeedTotal);
-
-            var rng = new Random();
-            List<Item> dataStore = Enumerable.Range(1, SeedTotal).Select(index => new Item
-            {
-                Id = index,
-                Name = "Item " + index.ToString(),
-                Cost = rng.Next(50, 500)
-            }).ToList();
-
-            _cache.Set("items", dataStore, TimeSpan.FromMinutes(30));
         }
 
         [HttpGet]
         public IEnumerable<Item> Get()
         {
+            var cacheOptions = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTime.Now.AddHours(2),
+                Priority = CacheItemPriority.Normal,
+                SlidingExpiration = TimeSpan.FromMinutes(10)
 
-            return _cache.Get<List<Item>>("items");
+            };
+
+            // check if latest id in the cache
+            if (!_cache.TryGetValue(Constants.LatestId, out int id))
+            {
+                _cache.Set(Constants.LatestId, Constants.SeedTotal, cacheOptions);
+            }
+
+            // check if items list in the cache
+            if (!_cache.TryGetValue(Constants.ItemsKey, out List<Item> items))
+            {
+                var rng = new Random();
+                List<Item> dataStore = Enumerable.Range(1, Constants.SeedTotal).Select(index => new Item
+                {
+                    Id = index,
+                    Name = "Item " + index.ToString(),
+                    Cost = rng.Next(50, 500)
+                }).ToList();
+
+                _cache.Set(Constants.ItemsKey, dataStore, cacheOptions);
+            }
+
+            return _cache.Get<List<Item>>(Constants.ItemsKey);
         }
 
         [HttpPost]
@@ -47,17 +61,24 @@ namespace MedikeeperAPI.Controllers
         {
             System.Diagnostics.Debug.WriteLine("In POST http\n");
             System.Diagnostics.Debug.WriteLine(item.Name);
+            System.Diagnostics.Debug.WriteLine(Constants.LatestId);
+
+            var cacheOptions = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTime.Now.AddHours(2),
+                Priority = CacheItemPriority.Normal,
+                SlidingExpiration = TimeSpan.FromMinutes(10)
+
+            };
 
             // mimic a database's identity generator
             List<Item> dataStore = _cache.Get<List<Item>>("items");
-            int len = dataStore.Count();
-            int latest_id = _cache.Get<int>("latest_id");
-            latest_id += 22;    
-            item.Id = latest_id;
+            int id = _cache.Get<int>(Constants.LatestId);
+            id += 1;    
+            item.Id = id;
             dataStore.Add(item);
-            _cache.Set("latest_id", latest_id, TimeSpan.FromMinutes(30));
-            _cache.Set("items", dataStore, TimeSpan.FromMinutes(30));
-            len = _cache.Get<List<Item>>("items").Count();
+            _cache.Set(Constants.LatestId, id, cacheOptions);
+            _cache.Set("items", dataStore, cacheOptions);
             return CreatedAtAction(nameof(Get), new { id = item.Id }, item);
         }
 
