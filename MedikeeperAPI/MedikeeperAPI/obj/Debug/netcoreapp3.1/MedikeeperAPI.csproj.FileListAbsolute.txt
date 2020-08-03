@@ -17,3 +17,4 @@ C:\Users\Sethu\source\repos\Medikeeper\MedikeeperAPI\MedikeeperAPI\obj\Debug\net
 C:\Users\Sethu\source\repos\Medikeeper\MedikeeperAPI\MedikeeperAPI\obj\Debug\netcoreapp3.1\MedikeeperAPI.dll
 C:\Users\Sethu\source\repos\Medikeeper\MedikeeperAPI\MedikeeperAPI\obj\Debug\netcoreapp3.1\MedikeeperAPI.pdb
 C:\Users\Sethu\source\repos\Medikeeper\MedikeeperAPI\MedikeeperAPI\obj\Debug\netcoreapp3.1\MedikeeperAPI.genruntimeconfig.cache
+C:\Users\Sethu\source\repos\Medikeeper\MedikeeperAPI\MedikeeperAPI\obj\Debug\netcoreapp3.1\MedikeeperAPI.csprojAssemblyReference.cache

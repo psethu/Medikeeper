@@ -11,10 +11,11 @@ namespace MedikeeperAPI.Controllers
     [Route("[controller]")]
     public class ItemsController : ControllerBase
     {
-        
+
         private readonly ILogger<ItemsController> _logger;
         private IMemoryCache _cache;
 
+        // In constructor, populate cache with seed data
         public ItemsController(ILogger<ItemsController> logger, IMemoryCache memoryCache)
         {
             _logger = logger;
@@ -22,7 +23,7 @@ namespace MedikeeperAPI.Controllers
             int SeedTotal = 7;
 
             _cache.Set("latest_id", SeedTotal);
-            
+
             var rng = new Random();
             List<Item> dataStore = Enumerable.Range(1, SeedTotal).Select(index => new Item
             {
@@ -37,16 +38,42 @@ namespace MedikeeperAPI.Controllers
         [HttpGet]
         public IEnumerable<Item> Get()
         {
-              
+
             return _cache.Get<List<Item>>("items");
         }
 
         [HttpPost]
         public IEnumerable<Item> Post(Item item)
         {
+            // mimic a database's identity generator
             List<Item> dataStore = _cache.Get<List<Item>>("items");
+            int latest_id = _cache.Get<int>("latest_id");
+            latest_id += 1;
+            item.Id = latest_id;
             dataStore.Add(item);
-            return Enumerable.Empty<Item>().ToArray();
+            _cache.Set("latest_id", latest_id);
+            return dataStore;
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Item item)
+        {
+            //find the item in the list with the item id
+            List<Item> dataStore = _cache.Get<List<Item>>("items");
+            int idx = dataStore.FindIndex(lambdaItem => lambdaItem.Id == id);
+            dataStore[idx] = item;
+            _cache.Set("items", dataStore);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            List<Item> dataStore = _cache.Get<List<Item>>("items");
+            int idx = dataStore.FindIndex(lambdaItem => lambdaItem.Id == id);
+            dataStore.RemoveAt(idx);
+            _cache.Set("items", dataStore);
+            return NoContent();
         }
     }
 }
