@@ -52,7 +52,7 @@ namespace MedikeeperAPI.Controllers
             List<Item> dataStore = _cache.Get<List<Item>>("items");
             int len = dataStore.Count();
             int latest_id = _cache.Get<int>("latest_id");
-            latest_id += 1;
+            latest_id += 22;    
             item.Id = latest_id;
             dataStore.Add(item);
             _cache.Set("latest_id", latest_id, TimeSpan.FromMinutes(30));
