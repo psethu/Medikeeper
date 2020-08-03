@@ -32,7 +32,7 @@ namespace MedikeeperAPI.Controllers
                 Cost = rng.Next(50, 500)
             }).ToList();
 
-            _cache.Set("items", dataStore);
+            _cache.Set("items", dataStore, TimeSpan.FromMinutes(30));
         }
 
         [HttpGet]
@@ -47,11 +47,14 @@ namespace MedikeeperAPI.Controllers
         {
             // mimic a database's identity generator
             List<Item> dataStore = _cache.Get<List<Item>>("items");
+            int len = dataStore.Count();
             int latest_id = _cache.Get<int>("latest_id");
             latest_id += 1;
             item.Id = latest_id;
             dataStore.Add(item);
-            _cache.Set("latest_id", latest_id);
+            _cache.Set("latest_id", latest_id, TimeSpan.FromMinutes(30));
+            _cache.Set("items", dataStore, TimeSpan.FromMinutes(30));
+            len = _cache.Get<List<Item>>("items").Count();
             return dataStore;
         }
 
