@@ -1,0 +1,36 @@
+<div class="container">
+    <form class="form">
+        Name     
+        <input type="number" name="minutes" placeholder="10" min="0" required appValidateInput>
+        
+        Cost
+        <input type="number" name="miles" placeholder="2" min="0" required appValidateInput>
+
+        <input type="submit" value="Add item" class="btn">
+        
+    </form>
+    
+    <br>
+    <button type="button" name="show"  (click)="getItems()" class="btn"> List items</button> 
+
+    <!-- 
+    <div class="content">
+        <div *ngIf="taxiRides" class="table-center">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Director</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor='let taxiRide of taxiRides'>
+                <td>{{taxiRide?.minutes}}</td>
+                <td>{{taxiRide?.miles}}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>         
+    </div>     -->
+</div>  
