@@ -45,6 +45,9 @@ namespace MedikeeperAPI.Controllers
         [HttpPost]
         public IActionResult Post(Item item)
         {
+            System.Diagnostics.Debug.WriteLine("In POST http\n");
+            System.Diagnostics.Debug.WriteLine(item.Name);
+
             // mimic a database's identity generator
             List<Item> dataStore = _cache.Get<List<Item>>("items");
             int len = dataStore.Count();
@@ -55,7 +58,7 @@ namespace MedikeeperAPI.Controllers
             _cache.Set("latest_id", latest_id, TimeSpan.FromMinutes(30));
             _cache.Set("items", dataStore, TimeSpan.FromMinutes(30));
             len = _cache.Get<List<Item>>("items").Count();
-            return NoContent();
+            return CreatedAtAction(nameof(Get), new { id = item.Id }, item);
         }
 
         [HttpPut("{id}")]

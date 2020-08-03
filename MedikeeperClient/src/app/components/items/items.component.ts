@@ -24,7 +24,7 @@ export class ItemsComponent implements OnInit {
   }
 
   addItem(item:Item) {
-    this.itemService.addItem(item).subscribe(todo => {
+    this.itemService.addItem(item).subscribe(item => {
       this.items.push(item);
     });
   }  
