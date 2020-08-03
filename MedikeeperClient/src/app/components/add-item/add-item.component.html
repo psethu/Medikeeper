@@ -1,0 +1,10 @@
+<form class="form" (ngSubmit)="onSubmit()">
+    Name     
+    <input type="text" name="name" [(ngModel)]="name" placeholder="Item 8" required appValidateInput>
+    <br>
+    Cost
+    <input type="number" name="cost" [(ngModel)]="cost" placeholder="25"  min="0" required appValidateInput>
+    <br>
+    <input type="submit" value="Add item" class="btn">
+    
+</form>

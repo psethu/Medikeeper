@@ -1,19 +1,12 @@
 <div class="container">
-    <form class="form">
-        Name     
-        <input type="number" name="minutes" placeholder="10" min="0" required appValidateInput>
-        
-        Cost
-        <input type="number" name="miles" placeholder="2" min="0" required appValidateInput>
-
-        <input type="submit" value="Add item" class="btn">
-        
-    </form>
-    
-    <br>
-    <button type="button" name="show"  (click)="getItems()" class="btn"> List items</button> 
-
-    
+    <div class='heading'>
+        <h1><span class="first_half">Medi</span><span class="second_half">keeper
+            </span>   
+        </h1>
+    </div>
+<br>
+    <app-add-item (addItem)="addItem($event)"> </app-add-item>
+<br>
     <div class="content">
         <div *ngIf="items" class="table-center">
         <table>

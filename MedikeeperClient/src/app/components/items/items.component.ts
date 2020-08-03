@@ -8,24 +8,25 @@ import { ItemService } from '../../services/item.service'
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
-  public items : Item[];
+  public items : Item[];  
 
   constructor(private itemService : ItemService) { }
 
-  public getItems = () => {
-    let route: string = 'http://localhost:5000/items';
-    this.itemService.getData(route)
+  ngOnInit(): void {
+    this.itemService.getData()
     .subscribe((result) => {
       console.log(result);
       this.items = result as Item[];
     },
     (error) => {
       console.error(error);
+    });    
+  }
+
+  addItem(item:Item) {
+    this.itemService.addItem(item).subscribe(todo => {
+      this.items.push(item);
     });
-  }
-
-
-  ngOnInit(): void {
-  }
+  }  
 
 }

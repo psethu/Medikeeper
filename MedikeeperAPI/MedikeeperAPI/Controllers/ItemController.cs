@@ -43,7 +43,7 @@ namespace MedikeeperAPI.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Item> Post(Item item)
+        public IActionResult Post(Item item)
         {
             // mimic a database's identity generator
             List<Item> dataStore = _cache.Get<List<Item>>("items");
@@ -55,7 +55,7 @@ namespace MedikeeperAPI.Controllers
             _cache.Set("latest_id", latest_id, TimeSpan.FromMinutes(30));
             _cache.Set("items", dataStore, TimeSpan.FromMinutes(30));
             len = _cache.Get<List<Item>>("items").Count();
-            return dataStore;
+            return NoContent();
         }
 
         [HttpPut("{id}")]
