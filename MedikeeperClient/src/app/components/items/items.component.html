@@ -8,8 +8,8 @@
     <app-add-item (addItem)="addItem($event)"> </app-add-item>
 <br>
     <div class="content">
-        <div *ngIf="!items" class="no items">
-            Currently unable to display items. Please refresh when server ready.
+        <div *ngIf="!items" class="no_items">
+            Please wait until server ready.
         </div>
         <div *ngIf="items" class="table-center">
         <table>
