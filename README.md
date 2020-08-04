@@ -3,13 +3,7 @@ Sample project for Medikeeper to demonstate REST API coordination between a clie
 
 ## Details
 
-API:  
-ASP.NET Core 3.1  
-Visual Studio 2019  
-
-Client:  
-Angular 9  
-Visual Studio Code
+API built in .Net Core 3.1. Client built in Angular 9.
 
 ## Demo
 Start server  
