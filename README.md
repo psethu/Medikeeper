@@ -4,7 +4,6 @@ Sample project for Medikeeper to demonstate REST API coordination between a clie
 
 ## Summary
 This repository contains 2 directories for the Client app and web API of the Medikeeper project.
-The Client makes an HTTP request to the API, receives JSON formatted data as the HTTP response, and then displays the result.
 
 API:  
 ASP.NET Core 3.1  
