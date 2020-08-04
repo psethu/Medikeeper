@@ -3,7 +3,18 @@ Sample project for Medikeeper to demonstate REST API coordination between a clie
 
 ## Details
 
-API built in .Net Core 3.1. Client built in Angular 9.
+API built in .Net Core 3.1. Client built in Angular 9.  
+
+API supports CRUD and handles the following http requests: get, post, put, delete  
+Following are respective routes:  
+Get  - http://localhost:5000/items  
+Post - http://localhost:5000/items  
+Put  - http://localhost:5000/items/{id}  
+Put  - http://localhost:5000/items/{id}  
+
+Additionally supported routes:  
+Max prices by item    - http://localhost:5000/items/max  
+Max price for an item - http://localhost:5000/items/{name}  
 
 ## Demo
 Start server  
