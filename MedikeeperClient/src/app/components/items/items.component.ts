@@ -8,7 +8,8 @@ import { ItemService } from '../../services/item.service'
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
-  public items : Item[];  
+  public items : Item[]; 
+  formData : Item;
 
   constructor(private itemService : ItemService) { }
 
@@ -21,6 +22,11 @@ export class ItemsComponent implements OnInit {
     (error) => {
       console.error(error);
     });    
+  }
+
+  populateForm(item:Item) {
+    this.formData = Object.assign({}, item);
+    console.log(this.formData.id);
   }
 
   addItem(item:Item) {

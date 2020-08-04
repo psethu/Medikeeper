@@ -7,7 +7,7 @@ import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 })
 export class AddItemComponent implements OnInit {
   @Output() addItem: EventEmitter<any> = new EventEmitter(); // using any because this item not formatted as the model since no id
-
+  id : number; // for use as hidden field
   name: string;
   cost: number;
 
@@ -21,7 +21,7 @@ export class AddItemComponent implements OnInit {
       name: this.name,
       cost: this.cost
     }
-  
+    console.log(this.id);
     this.addItem.emit(item);
   }
 
