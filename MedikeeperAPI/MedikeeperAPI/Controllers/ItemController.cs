@@ -22,6 +22,48 @@ namespace MedikeeperAPI.Controllers
             _cache = memoryCache;
         }
 
+        [HttpGet("max")]
+        public IEnumerable<KeyValuePair<string, int>> GetMaxPricedItems()
+        {
+            // using a dictionary, track the max price for each item
+            List<Item> dataStore = _cache.Get<List<Item>>(Constants.ItemsKey);
+            Dictionary<string, int> itemsCost = new Dictionary<string, int>();
+
+            foreach (Item item in dataStore)
+            {
+                if (itemsCost.ContainsKey(item.Name))
+                {
+                    if (item.Cost > itemsCost[item.Name])
+                    {
+                        itemsCost[item.Name] = item.Cost;
+                    }
+
+                }
+                else
+                {
+                    itemsCost[item.Name] = item.Cost;
+                }
+            }
+
+            var dictSorted = from objDict in itemsCost orderby objDict.Value descending select objDict;
+            return dictSorted;
+        }
+
+        [HttpGet("{name}")]
+        public int GetMaxPrice(string name)
+        {
+            List<Item> dataStore = _cache.Get<List<Item>>(Constants.ItemsKey);
+            int price = -1;
+            foreach (Item item in dataStore)
+            {
+                if (item.Name == name & item.Cost > price)
+                {
+                    price = item.Cost;
+                }
+            }
+            return price;
+        }
+
         [HttpGet]
         public IEnumerable<Item> Get()
         {
