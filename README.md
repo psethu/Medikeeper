@@ -9,7 +9,7 @@ Start server
 Start client  
 1. Open a command line utility to the Client app folder  
 2. Run command 'ng serve'  
-3. Navigate to `http://localhost:4200` and verify display of front end. Medikeeper title, form, list should display.  
+3. Navigate to `http://localhost:4200` and verify display of front end. Medikeeper title, items form, items list should display.  
 
 ## Details
 
