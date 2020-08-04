@@ -11,6 +11,9 @@ Start client
 2. Run command 'ng serve'  
 3. Navigate to `http://localhost:4200` and verify display of front end. Medikeeper title, items form, items list should display.  
 
+## Preview
+![alt text](https://github.com/psethu/Medikeeper/blob/master/MedikeeperClient/Supporting/MedikeeperClient.png?raw=true)  
+
 ## Details
 
 API:  
