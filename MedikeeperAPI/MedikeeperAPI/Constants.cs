@@ -8,7 +8,7 @@ namespace MedikeeperAPI
 {
     static class Constants
     {
-        public const int SeedTotal = 7;
+        public const int SeedTotal = 4;
         public const string LatestId = "latest_id";
         public const string ItemsKey = "items";
 
