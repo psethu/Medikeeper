@@ -5,16 +5,15 @@ Sample project for Medikeeper to demonstate REST API coordination between a clie
 
 API built in .Net Core 3.1. Client built in Angular 9.  
 
-API supports CRUD and handles the following http requests: get, post, put, delete  
-Following are respective routes:  
-Get  - http://localhost:5000/items  
-Post - http://localhost:5000/items  
-Put  - http://localhost:5000/items/{id}  
-Put  - http://localhost:5000/items/{id}  
+API supports the following http routes:  
+Get    - /items  
+Post   - /items  
+Put    - /items/{id}  
+Delete - /items/{id}  
 
 Additionally supported routes:  
-Max prices by item    - http://localhost:5000/items/max  
-Max price for an item - http://localhost:5000/items/{name}  
+Max prices by item    - /items/max  
+Max price for an item - /items/{name}  
 
 ## Demo
 Start server  
@@ -28,3 +27,5 @@ Start client
 
 ## Preview
 ![alt text](https://github.com/psethu/Medikeeper/blob/master/MedikeeperClient/Supporting/MedikeeperClient.png?raw=true)  
+
+![alt text](https://github.com/psethu/Medikeeper/blob/master/MedikeeperClient/Supporting/MedikeeperAPI.png?raw=true)  
