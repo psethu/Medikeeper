@@ -21,10 +21,18 @@ export class ItemService {
   public getData = () =>{
     return this.http.get(this.route);
   }
+
+  putItem(item: Item) {
+    return this.http.put(this.route + '/'+ item.id, item);
+  }  
   
   // Add Item 
   addItem(item:Item):Observable<Item> {
     return this.http.post<Item>(this.route, item, httpOptions);
   }
+
+  deleteItem(id:number) {
+    return this.http.delete(this.route + '/'+ id);
+  }  
 
 }

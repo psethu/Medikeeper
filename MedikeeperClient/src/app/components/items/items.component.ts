@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Item} from '../../models/Item';
-import { ItemService } from '../../services/item.service'
+import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-items',
@@ -9,11 +9,21 @@ import { ItemService } from '../../services/item.service'
 })
 export class ItemsComponent implements OnInit {
   public items : Item[]; 
-  formData : Item;
+  item : Item;
+  submittedItem : Item = null;
 
   constructor(private itemService : ItemService) { }
 
   ngOnInit(): void {
+    this.getItems();
+  }
+
+  populateForm(item:Item) {
+    this.item = Object.assign({}, item); // copy the item selected into Component item object
+    
+  }
+
+  getItems() {
     this.itemService.getData()
     .subscribe((result) => {
       console.log(result);
@@ -21,18 +31,37 @@ export class ItemsComponent implements OnInit {
     },
     (error) => {
       console.error(error);
-    });    
+    });        
   }
 
-  populateForm(item:Item) {
-    this.formData = Object.assign({}, item);
-    console.log(this.formData.id);
+  addItem(item:any) { 
+    console.log("item component")
+    console.log(item.name);
+    
+    // Id of zero indicates POST from form. If not zero then PUT
+    if (item.id == 0) {
+      this.itemService.addItem(item).subscribe(item => {
+        this.items.push(item);
+      });
+    }
+    else {
+      this.itemService.putItem(item).subscribe(res => {
+        this.getItems();
+      }, err => {
+        console.log(err);
+      });      
+    }
   }
 
-  addItem(item:Item) {
-    this.itemService.addItem(item).subscribe(item => {
-      this.items.push(item);
-    });
-  }  
+  onDelete(id: number) {
+    this.itemService.deleteItem(id)
+      .subscribe(res => {
+        this.getItems();
+      },
+        err => {
+          console.log(err);
+        })
+
+  }
 
 }

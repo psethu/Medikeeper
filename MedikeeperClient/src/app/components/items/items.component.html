@@ -5,7 +5,7 @@
         </h1>
     </div>
 <br>
-    <app-add-item (addItem)="addItem($event)"> </app-add-item>
+    <app-item-detail [formData]="item" (addItemChild)="addItem($event)"> </app-item-detail>
 <br>
     <div class="content">
         <div *ngIf="!items" class="no_items">
@@ -25,6 +25,9 @@
                 <td (click)="populateForm(item)">{{item?.id}}</td>
                 <td (click)="populateForm(item)">{{item?.name}}</td>
                 <td (click)="populateForm(item)">{{item?.cost}}</td>
+                <td>
+                    <button class="delete" (click)="onDelete(item.id)">&nbsp;X&nbsp;</button>
+                </td>                
             </tr>
             </tbody>
         </table>
